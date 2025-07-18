@@ -20,7 +20,7 @@ interface TopicModalProps {
 
 export default function TopicModal({ topic }: TopicModalProps) {
   return (
-    <div className=" grid-cols-1 md:grid-cols-3 xl:grid-cols-4 inline-flex gap-8 p-6 mx-auto rounded-lg shadow-xl z-50">
+    <div className=" grid-cols-1 md:grid-cols-3 xl:grid-cols-4 inline-flex gap-8 p-6 mx-auto rounded-lg shadow-xl z-50 bg-[var(--color-background)]">
       {topic.content.map((section, sectionIdx) => (
         <div key={sectionIdx} className={`min-w-2xs w-fit ${sectionIdx !== 0 ? 'border-l border-[var(--color-foreground)]/20 pl-6' : ''}`}>
           <h4 className="text-lg font-semibold mb-3">{section.subtitle}</h4>

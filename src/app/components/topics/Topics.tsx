@@ -16,7 +16,8 @@ export default function Topics() {
     };
 
     return (
-        <div className="w-full flex flex-col items-center justify-center">
+        <div className="relative z-10 w-full flex flex-col items-center justify-center shadow-xl/2">
+
             <div className="w-full border-b-1 opacity-20" />
             <div className="flex gap-20 py-4">
                 {topics.map((topic, index) => (
@@ -27,7 +28,7 @@ export default function Topics() {
                         onMouseLeave={() => setHoveredIndex(null)}
                     >
                         {/* Título */}
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-2">
                             <span className="font-medium text-lg">{topic.title}</span>
                             <svg
                                 className={`w-[20px] h-[20px] transition-transform duration-200 ${hoveredIndex === index ? 'rotate-180' : ''}`}
@@ -44,13 +45,13 @@ export default function Topics() {
 
                         {/* 🔥 Bridge invisible que rellena el espacio */}
                         {hoveredIndex === index && (
-                            <div className="absolute top-full h-5 w-full z-10" />
+                            <div className="absolute top-full h-10 w-full z-10" />
                         )}
 
                         {/* Modal */}
                         {hoveredIndex === index && (
                             <div
-                                className={`absolute top-full mt-5 z-10 px-4 ${getModalPositionClass(index, topics.length)}`}
+                                className={`absolute top-full mt-7 z-10 px-4 ${getModalPositionClass(index, topics.length)}`}
                             >
                                 <div className="border border-[var(--color-foreground)]/10 rounded shadow-md overflow-hidden">
                                     <TopicModal topic={topic} />
