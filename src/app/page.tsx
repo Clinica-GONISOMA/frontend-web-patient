@@ -1,36 +1,11 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TopicModal from "./components/TopicModal";
 import { topics } from "./data";
 
 export default function Home() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-   const [windowWidth, setWindowWidth] = useState(0);
-
-  useEffect(() => {
-    // Solo ejecutar en el cliente
-    if (typeof window !== 'undefined') {
-      setWindowWidth(window.innerWidth);
-      const handleResize = () => setWindowWidth(window.innerWidth);
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }
-  }, []);
-
-  const getModalPositionClass = (index: number, total: number) => {
-    const modalWidth = 1000; // Ajusta según tu modal más grande
-
-    if (windowWidth === 0) return "left-1/2 -translate-x-1/2"; // Default mientras se carga
-
-    if (windowWidth < modalWidth) {
-      return "left-0 right-0 mx-4"; // Pantallas pequeñas - modal full width
-    }
-
-    if (index === 0) return "left-0";
-    if (index === total - 1) return "right-0";
-    return "left-1/2 -translate-x-1/2";
-  };
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
@@ -80,4 +55,10 @@ export default function Home() {
     </div>
   );
 }
+
+const getModalPositionClass = (index: number, total: number) => {
+  if (index === 0) return "left-0";
+  if (index === total - 1) return "right-0";
+  return "left-1/2 -translate-x-1/2";
+};
 
