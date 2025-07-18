@@ -1,4 +1,4 @@
-import { TopicsInterface } from "./components/TopicModal";
+import { TopicsInterface } from "./components/topics/TopicModal";
 
 export const topics: TopicsInterface[] = [
   {
@@ -241,7 +241,7 @@ export const topics: TopicsInterface[] = [
             name: "Convenios instituciones",
             description: "Colabora con nosotros",
             icon: "🤝",
-          }
+          },
         ],
       },
     ],
