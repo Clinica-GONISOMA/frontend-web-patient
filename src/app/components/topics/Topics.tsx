@@ -16,7 +16,7 @@ export default function Topics() {
     };
 
     return (
-        <div className="relative z-10 w-full flex flex-col items-center justify-center shadow-xl/2">
+        <div className="relative z-10 w-full flex flex-col items-center justify-center shadow-xl">
 
             <div className="w-full border-b-1 opacity-20" />
             <div className="flex gap-20 py-4">

@@ -67,7 +67,7 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
 
     const ArrowSVG = ({ rotate }: { rotate: number }) => (
         <svg
-            className="w-[20px] h-[20px] transition-transform duration-200"
+            className="w-[40px] h-[40px] transition-transform duration-200"
             style={{ transform: `rotate(${rotate}deg)` }}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -113,7 +113,7 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
             {/* Prev Button */}
             <button
                 onClick={() => { stopAutoplay(); goToPrev(); startAutoplay() }}
-                className="absolute top-1/2 left-4 -translate-y-1/2 border-2 border-[var(--color-foreground)]/50 bg-[var(--color-background)] text-[var(--color-foreground)]/50 rounded-full p-2 cursor-pointer"
+                className="absolute top-1/2 left-4 -translate-y-1/2 text-[var(--color-foreground)] p-2 cursor-pointer"
                 aria-label="Previous"
             >
                 <ArrowSVG rotate={90} />
@@ -122,7 +122,7 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
             {/* Next Button */}
             <button
                 onClick={() => { stopAutoplay(); goToNext(); startAutoplay() }}
-                className="absolute top-1/2 right-4 -translate-y-1/2 border-2 border-[var(--color-foreground)]/50 bg-[var(--color-background)] text-[var(--color-foreground)]/50 rounded-full p-2 cursor-pointer"
+                className="absolute top-1/2 right-4 -translate-y-1/2 text-[var(--color-foreground)] rounded-full p-2 cursor-pointer"
                 aria-label="Next"
             >
                 <ArrowSVG rotate={-90} />

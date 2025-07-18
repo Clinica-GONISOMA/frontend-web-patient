@@ -53,10 +53,15 @@ export default function Header() {
                     <li>
                         <Link href="/account">Cuenta</Link>
                     </li>
-                    <li>
+                    <li className='flex items-center'>
                         <Link href="/appointment">
-                            <button className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
+                            <button className="rounded-l-full cursor-pointer transition-colors flex items-center justify-center bg-foreground text-background gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
                                 Reservar hora
+                            </button>
+                        </Link>
+                        <Link href="/cancel-appointment" >
+                            <button className="rounded-r-full border cursor-pointer h-10 sm:h-12 px-2 w-15 text-xs text-start">
+                                Anular hora
                             </button>
                         </Link>
                     </li>
