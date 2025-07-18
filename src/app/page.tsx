@@ -1,131 +1,37 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopicModal from "./components/TopicModal";
-
-interface ItemInterface {
-  name: string,
-  description: string,
-  icon: string
-}
-
-interface TopicContentInterface {
-  subtitle: string,
-  items: ItemInterface[]
-}
-
-interface TopicsInterface {
-  title: string;
-  content: TopicContentInterface[]
-}
+import { topics } from "./data";
 
 export default function Home() {
-  const topics: TopicsInterface[] = [
-    {
-      title: 'Servicios en línea',
-      content: [
-        {
-          subtitle: 'Valores y pagos',
-          items: [
-            {
-              name: 'Aranceles',
-              description: 'Conoce los valores',
-              icon: '💰'
-            },
-            {
-              name: 'Presupuesto cirugía y parto',
-              description: 'Solicita tu cotización',
-              icon: '💳'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Especialidades y servicios',
-      content: [
-        {
-          subtitle: 'Atenciones',
-          items: [
-            {
-              name: 'Servicios clinicos',
-              description: 'Conoce los que tenemos',
-              icon: '🏥'
-            },
-          ]
-        },
-        {
-          subtitle: 'Modalidad de atención',
-          items: [
-            {
-              name: 'Atención presencial',
-              description: 'Agenda tu hora',
-              icon: '📅'
-            },
-            {
-              name: 'Atención a distancia',
-              description: 'Consulta online',
-              icon: '💻'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Seguros y convenios', content: [
-        {
-          subtitle: 'Seguros',
-          items: [
-            {
-              name: 'Aseguradoras',
-              description: 'Conoce las aseguradoras',
-              icon: '🏥'
-            },
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Prevención y bienestar', content: [
-        {
-          subtitle: 'Temas de salud',
-          items: [
-            {
-              name: 'Nutrición',
-              description: 'Conoce más sobre nutrición',
-              icon: '🥗'
-            },
-            {
-              name: 'Salud mental',
-              description: 'Recursos y apoyo',
-              icon: '🧠'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      title: 'Educación de salud', content: [
-        {
-          subtitle: 'Temas de salud',
-          items: [
-            {
-              name: 'Nutrición',
-              description: 'Conoce más sobre nutrición',
-              icon: '🥗'
-            },
-            {
-              name: 'Salud mental',
-              description: 'Recursos y apoyo',
-              icon: '🧠'
-            }
-          ]
-        }
-      ]
-    },
-  ];
-
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+   const [windowWidth, setWindowWidth] = useState(0);
+
+  useEffect(() => {
+    // Solo ejecutar en el cliente
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  const getModalPositionClass = (index: number, total: number) => {
+    const modalWidth = 1000; // Ajusta según tu modal más grande
+
+    if (windowWidth === 0) return "left-1/2 -translate-x-1/2"; // Default mientras se carga
+
+    if (windowWidth < modalWidth) {
+      return "left-0 right-0 mx-4"; // Pantallas pequeñas - modal full width
+    }
+
+    if (index === 0) return "left-0";
+    if (index === total - 1) return "right-0";
+    return "left-1/2 -translate-x-1/2";
+  };
+
   return (
     <div className="w-full flex flex-col items-center justify-center">
       <div className="w-full border-b-1 opacity-20" />
@@ -137,11 +43,11 @@ export default function Home() {
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <div className="flex items-center gap-2">
-              <span className=" font-medium text-lg">{topic.title}</span>
+            {/* Título */}
+            <div className="flex items-center gap-1">
+              <span className="font-medium text-lg">{topic.title}</span>
               <svg
-                className={`w-[20px] h-[20px] transition-transform duration-200 ${hoveredIndex === index ? 'rotate-180' : ''
-                  }`}
+                className={`w-[20px] h-[20px] transition-transform duration-200 ${hoveredIndex === index ? 'rotate-180' : ''}`}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 20 20"
@@ -151,30 +57,27 @@ export default function Home() {
                   fill="currentColor"
                 />
               </svg>
-
             </div>
 
+            {/* 🔥 Bridge invisible que rellena el espacio */}
+            {hoveredIndex === index && (
+              <div className="absolute top-full h-5 w-full z-10" />
+            )}
+
+            {/* Modal */}
             {hoveredIndex === index && (
               <div
-                className={`absolute top-full mt-5 z-10 max-w-[800px] w-[90vw] px-4 ${getModalPositionClass(index, topics.length)}`}
+                className={`absolute top-full mt-5 z-10 px-4 ${getModalPositionClass(index, topics.length)}`}
               >
                 <div className="border border-[var(--color-foreground)]/10 rounded shadow-md overflow-hidden">
                   <TopicModal topic={topic} />
                 </div>
               </div>
-
             )}
-
           </div>
         ))}
       </div>
     </div>
   );
 }
-
-const getModalPositionClass = (index: number, total: number) => {
-  if (index === 0) return "left-0";
-  if (index === total - 1) return "right-0";
-  return "left-1/2 -translate-x-1/2";
-};
 
