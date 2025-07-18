@@ -54,7 +54,7 @@ export default function Header() {
                         <Link href="/account">Cuenta</Link>
                     </li>
                     <li>
-                        <Link href="/reserve">
+                        <Link href="/appointment">
                             <button className="rounded-full border border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
                                 Reservar hora
                             </button>
@@ -63,7 +63,7 @@ export default function Header() {
                 </ul>
                 <button
                     onClick={() => setIsDarkMode((prev) => !prev)}
-                    className="p-2 border-2 rounded-4xl cursor-pointer"
+                    className="p-2 border-2 border-[var(--color-foreground)]/50 rounded-4xl cursor-pointer"
                 >
                     {isDarkMode ? '☀️' : '🌙'}
                 </button>
