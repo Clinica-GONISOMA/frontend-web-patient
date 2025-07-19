@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import Branding from './Branding';
 
 export default function Header() {
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -32,17 +33,7 @@ export default function Header() {
     return (
         <header className="flex content-between w-full justify-between px-20 py-5">
             {/* Logo y nombre */}
-            <Link href="/">
-                <div className="flex items-center">
-
-                    <div className="text-4xl text-center mt-2">🏥</div>
-                    <div>
-                        <p>Nombre</p>
-                        <p className="text-3xl">Empresa</p>
-                    </div>
-
-                </div>
-            </Link>
+            <Branding />
 
             {/* Navegación y botón modo oscuro */}
             <nav className="flex items-center justify-between gap-10">
