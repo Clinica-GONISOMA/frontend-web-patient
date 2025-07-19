@@ -5,203 +5,46 @@ export const topics: TopicsInterface[] = [
     title: "Servicios en línea",
     content: [
       {
-        subtitle: "Valores y pagos",
+        subtitle: "Pagos y exámenes",
         items: [
-          {
-            name: "Aranceles",
-            description: "Conoce los valores",
-            icon: "🔍",
-          },
-          {
-            name: "Presupuesto cirugía y parto",
-            description: "Solicita tu cotización",
-            icon: "🩺",
-          },
-          {
-            name: "Pago de cuentas",
-            description: "Ambulatorio y hospitalización",
-            icon: "💳",
-          },
-          {
-            name: "Isapres preferentes",
-            description: "Con cobertura en la clínica",
-            icon: "➕",
-          },
+          { name: "Aranceles", description: "Conoce los valores", icon: "🔍" },
+          { name: "Presupuesto cirugía y parto", description: "Solicita tu cotización", icon: "🩺" },
+          { name: "Pago de cuentas", description: "Ambulatorio y hospitalización", icon: "💳" },
+          { name: "Agendar exámenes", description: "Reserva tus exámenes", icon: "📅" },
+          { name: "Simulador de copago", description: "Calcula tu costo estimado", icon: "🧑🏻‍💻" },
+          { name: "Resultados", description: "Descarga informes e imágenes", icon: "📄" },
         ],
       },
       {
-        subtitle: "Exámenes",
+        subtitle: "Información hospitalaria",
         items: [
-          {
-            name: "Agendar",
-            description: "Reserva tus exámenes",
-            icon: "📅",
-          },
-          {
-            name: "Simulador",
-            description: "Simula el copago estimado",
-            icon: "🧑🏻‍💻",
-          },
-          {
-            name: "Indicaciones",
-            description: "Revisa como prepararte",
-            icon: "📋",
-          },
-          {
-            name: "Resultados",
-            description: "Descarga informes e imágenes",
-            icon: "📄",
-          },
+          { name: "Proceso de alta", description: "Conócelo en detalle", icon: "✅" },
+          { name: "Estado de cuenta", description: "Revisa avances y pagos", icon: "📊" },
+          { name: "Información clave", description: "Todo el proceso hospitalario", icon: "ℹ️" },
         ],
       },
       {
-        subtitle: "Hospitalización",
+        subtitle: "Reservas y modalidades",
         items: [
-          {
-            name: "Información clave",
-            description: "Conoce todo el proceso",
-            icon: "ℹ️",
-          },
-          {
-            name: "Proceso de alta",
-            description: "Conócelo en detalle",
-            icon: "✅",
-          },
-          {
-            name: "Estado de cuenta",
-            description: "Revisa el avance y si ya puedes pagar",
-            icon: "📊",
-          },
-        ],
-      },
-      {
-        subtitle: "Reserva de hora",
-        items: [
-          {
-            name: "Presencial",
-            description: "Dirígete a una sucursal",
-            icon: "🏢",
-          },
-          {
-            name: "Telemedicina",
-            description: "Atiéndete desde cualquier lugar",
-            icon: "💻",
-          },
-          {
-            name: "Teleurgencia",
-            description: "Para sítnomas agudos",
-            icon: "📞",
-          },
-          {
-            name: "Exámenes y procedimientos",
-            description: "Agenda tus pruebas médicas",
-            icon: "🧪",
-          },
-          {
-            name: "A domicilio",
-            description: "Atiéndete en tu hogar",
-            icon: "🏠",
-          },
+          { name: "Presencial", description: "Ve a una sucursal", icon: "🏢" },
+          { name: "Telemedicina", description: "Consulta virtual", icon: "💻" },
+          { name: "Teleurgencia", description: "Síntomas agudos", icon: "🚨" },
+          { name: "A domicilio", description: "Atención en tu hogar", icon: "🏠" },
+          { name: "Procedimientos", description: "Agenda pruebas médicas", icon: "🧪" },
         ],
       },
     ],
   },
   {
-    title: "Especialidades y servicios",
+    title: "Especialidades y médicos",
     content: [
       {
-        subtitle: "Atenciones",
+        subtitle: "Nuestros servicios",
         items: [
-          {
-            name: "Servicios clínicos",
-            description: "Conoce los que tenemos",
-            icon: "🏥",
-          },
-          {
-            name: "Especialidades",
-            description: "Revisa las más de 60 disponibles",
-            icon: "🩺",
-          },
-          {
-            name: "Nuestros médicos",
-            description: "Busca por área o especialidad",
-            icon: "👨‍⚕️",
-          },
-          {
-            name: "Sucursales",
-            description: "Busca la más cercana",
-            icon: "📍",
-          },
-        ],
-      },
-      {
-        subtitle: "Modalidad de atención",
-        items: [
-          {
-            name: "Telemedicina",
-            description: "Consulta de forma virtual",
-            icon: "💻",
-          },
-          {
-            name: "Teleurgencia",
-            description: "Consulta para síntomas agudos",
-            icon: "🚨",
-          },
-          {
-            name: "A domicilio",
-            description: "Atiéndete en tu hogar",
-            icon: "🏠",
-          },
-          {
-            name: "Presencial",
-            description: "Dirígete a una sucursal",
-            icon: "🏢",
-          },
-        ],
-      },
-      {
-        subtitle: "Atención especializada",
-        items: [
-          {
-            name: "Maternidad integral",
-            description: "Conoce nuestro servicio",
-            icon: "👶",
-          },
-          {
-            name: "Hospitalización",
-            description: "Revisa todo el proceso",
-            icon: "🏨",
-          },
-          {
-            name: "Salud empresa",
-            description: "Cuida a tus colaboradores",
-            icon: "💼",
-          },
-          {
-            name: "Paciente internacional",
-            description: "Solicita tu atención",
-            icon: "🌎",
-          },
-          {
-            name: "Paciente regional",
-            description: "Gestiona tu visita",
-            icon: "🗺️",
-          },
-          {
-            name: "Requerimientos",
-            description: "Solicita tu documento médico",
-            icon: "📝",
-          },
-          {
-            name: "Centros",
-            description: "Busca el más cercano",
-            icon: "🏥",
-          },
-          {
-            name: "Programas y asesorías",
-            description: "Encuentra el mejor para ti",
-            icon: "📋",
-          },
+          { name: "Servicios clínicos", description: "Conoce lo que ofrecemos", icon: "🏥" },
+          { name: "Especialidades", description: "Más de 60 disponibles", icon: "🩺" },
+          { name: "Nuestros médicos", description: "Busca por área", icon: "👨‍⚕️" },
+          { name: "Sucursales", description: "Encuentra la más cercana", icon: "📍" },
         ],
       },
     ],
@@ -212,83 +55,39 @@ export const topics: TopicsInterface[] = [
       {
         subtitle: "Seguros",
         items: [
-          {
-            name: "Alemana Seguros",
-            description: "Elige el mejor para ti",
-            icon: "🛡️",
-          },
-          {
-            name: "Todo Alemana",
-            description: "Revisa nuestros planes",
-            icon: "📋",
-          },
-          {
-            name: "Isapres preferentes",
-            description: "Con cobertura en la clínica",
-            icon: "🏥",
-          },
+          { name: "Alemana Seguros", description: "Elige el mejor plan", icon: "🛡️" },
+          { name: "Todo Alemana", description: "Revisa nuestros planes", icon: "📋" },
+          { name: "Isapres preferentes", description: "Cobertura en la clínica", icon: "🏥" },
         ],
       },
       {
         subtitle: "Convenios",
         items: [
-          {
-            name: "Convenios de accidentes",
-            description: "Protege a tu familia",
-            icon: "🛡️",
-          },
-          {
-            name: "Convenios instituciones",
-            description: "Colabora con nosotros",
-            icon: "🤝",
-          },
+          { name: "Accidentes", description: "Protege a tu familia", icon: "🛡️" },
+          { name: "Instituciones", description: "Colabora con nosotros", icon: "🤝" },
         ],
       },
     ],
   },
   {
-    title: "Prevención y bienestar",
+    title: "Prevención y educación",
     content: [
       {
-        subtitle: "Personas",
+        subtitle: "Bienestar personal",
         items: [
-          {
-            name: "Salud preventiva",
-            description: "Descubre chequeos y programas",
-            icon: "❤️‍🩹",
-          },
+          { name: "Chequeos preventivos", description: "Programas y exámenes", icon: "❤️‍🩹" },
+          { name: "Nutrición", description: "Aprende a alimentarte bien", icon: "🥗" },
+          { name: "Salud mental", description: "Recursos y apoyo", icon: "🧠" },
         ],
       },
       {
-        subtitle: "Empresas",
+        subtitle: "Bienestar empresa",
         items: [
-          {
-            name: "Salud empresa",
-            description: "Cuida a tus colaboradores",
-            icon: "🧑🏻‍💼",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Educación de salud",
-    content: [
-      {
-        subtitle: "Temas de salud",
-        items: [
-          {
-            name: "Nutrición",
-            description: "Conoce más sobre nutrición",
-            icon: "🥗",
-          },
-          {
-            name: "Salud mental",
-            description: "Recursos y apoyo",
-            icon: "🧠",
-          },
+          { name: "Salud empresa", description: "Cuida a tus colaboradores", icon: "💼" },
         ],
       },
     ],
   },
 ];
+
+
