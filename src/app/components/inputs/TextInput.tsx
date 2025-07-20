@@ -33,14 +33,15 @@ export default function TextInput({
       />
       <label
         htmlFor={inputId}
-        className="absolute rounded-full left-4 top-3 text-[var(--color-foreground)] text-base transition-all
+        className={`absolute rounded-full left-4 top-3 text-[var(--color-foreground)] text-base transition-all
           peer-placeholder-shown:top-4
           peer-placeholder-shown:text-base
-          peer-placeholder-shown:text-[var(--color-foreground)]
+          peer-placeholder-shown:text-[var(--color-foreground)]/50
           peer-focus:top-[-12]
           peer-focus:text-sm
           peer-focus:text-[var(--color-foreground)]
-          bg-[var(--color-background)] px-1 cursor-text"
+          bg-[var(--color-background)] px-1 cursor-text` +
+          ` ${value.length > 0 && 'top-[-12] text-sm text-[var(--color-foreground)] '}`}
       >
         {label}
       </label>

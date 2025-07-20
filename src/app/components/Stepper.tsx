@@ -13,7 +13,7 @@ interface StepperProps {
 
 export default function Stepper({ currentStep, steps }: StepperProps) {
   return (
-    <div className="w-full">
+    <div className="w-fit">
       {/* Titles aligned under circles */}
       <div className="flex">
         {steps.map((step, index) => (
@@ -25,7 +25,7 @@ export default function Stepper({ currentStep, steps }: StepperProps) {
       {/* Circles and connecting lines */}
       <div className="flex mt-2">
         {steps.map((_, index) => (
-          <div key={index} className="relative flex-1 flex justify-center items-center max-w-md w-md">
+          <div key={index} className="relative flex-1 flex justify-center items-center">
             {/* Circle */}
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition
@@ -49,7 +49,7 @@ export default function Stepper({ currentStep, steps }: StepperProps) {
 
 
       {/* Content of current step */}
-      <div className='mt-15'>
+      <div className='mt-15 w-fit'>
         {steps[currentStep].content}
       </div>
     </div>

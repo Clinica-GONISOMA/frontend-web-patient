@@ -54,8 +54,8 @@ export default function Select({
 
       <label
         htmlFor={inputId}
-        className={`absolute left-4 text-[var(--color-foreground)] text-base transition-all
-          ${!selectedOption && !open ? 'top-4 text-base' : '-top-2 text-sm'}
+        className={`absolute left-4  text-base transition-all
+          ${!selectedOption && !open ? 'top-4 text-base text-[var(--color-foreground)]/50' : '-top-3 text-sm text-[var(--color-foreground)]'}
           bg-[var(--color-background)] px-1 pointer-events-none`}
       >
         {label}
