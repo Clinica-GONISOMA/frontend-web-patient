@@ -1,8 +1,9 @@
 'use client';
 import { useState } from "react";
+import TextInput from "../components/inputs/TextInput";
 
 export default function CancelAppointment() {
-  const [selected, setSelected] = useState<'rut' | 'pasaporte' | null>(null);
+  const [selected, setSelected] = useState<'rut' | 'pasaporte' | null>('rut');
   const [idNumber, setIdNumber] = useState('');
   const [appointmentNumber, setAppointmentNumber] = useState('');
 
@@ -14,14 +15,14 @@ export default function CancelAppointment() {
         {/* Selector */}
         <div className="flex gap-4">
           <button
-            className={`border rounded-full px-4 py-2 transition ${selected === 'rut' ? 'bg-[var(--color-foreground)] text-[var(--color-background)]' : 'bg-[var(--color-background)] text-[var(--color-foreground)]'
+            className={`border rounded-full cursor-pointer px-4 py-2 transition ${selected === 'rut' ? 'bg-[var(--color-foreground)] text-[var(--color-background)]' : 'bg-[var(--color-background)] text-[var(--color-foreground)]'
               }`}
             onClick={() => setSelected('rut')}
           >
             RUT
           </button>
           <button
-            className={`border rounded-full px-4 py-2 transition ${selected === 'pasaporte' ? 'bg-[var(--color-foreground)] text-[var(--color-background)]' : 'bg-[var(--color-background)] text-[var(--color-foreground)]'
+            className={`border rounded-full cursor-pointer px-4 py-2 transition ${selected === 'pasaporte' ? 'bg-[var(--color-foreground)] text-[var(--color-background)]' : 'bg-[var(--color-background)] text-[var(--color-foreground)]'
               }`}
             onClick={() => setSelected('pasaporte')}
           >
@@ -30,25 +31,30 @@ export default function CancelAppointment() {
         </div>
 
         {/* Input */}
-        {selected && (
-          <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center">
+          <TextInput
+            label={selected === 'rut' ? 'RUT' : 'Pasaporte'}
+            value={idNumber}
+            onChange={setIdNumber}
+            name="id-number"
+            className="mt-2"
+          />
+          <TextInput
+            label="Número de reserva"
+            value={appointmentNumber}
+            onChange={setAppointmentNumber}
+            name="appointment-number"
+            className="mt-6"
+          />
+        </div>
 
-            <input
-              type="text"
-              placeholder={selected === 'rut' ? 'Ingresa tu RUT' : 'Ingresa tu pasaporte'}
-              className="border rounded-full px-4 py-2 w-64 mt-2 focus:outline-none"
-              value={idNumber}
-              onChange={(e) => setIdNumber(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder= 'Número de reserva'
-              className="border rounded-full px-4 py-2 w-64 mt-5 focus:outline-none "
-              value={appointmentNumber}
-              onChange={(e) => setAppointmentNumber(e.target.value)}
-            />
-          </div>
-        )}
+        {/* Submit button */}
+        <button
+          className="bg-[var(--color-foreground)] text-[var(--color-background)] px-4 py-2 rounded-full cursor-pointer self-end"
+        >
+          Anular
+        </button>
+
       </div>
     </div>
   );

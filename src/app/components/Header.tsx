@@ -59,7 +59,7 @@ export default function Header() {
                 </ul>
                 <button
                     onClick={() => setIsDarkMode((prev) => !prev)}
-                    className="p-2 border-2 border-[var(--color-foreground)]/50 rounded-4xl cursor-pointer"
+                    className="p-2 border-2 border-[var(--color-foreground)]/50 rounded-full cursor-pointer"
                 >
                     {isDarkMode ? '☀️' : '🌙'}
                 </button>
