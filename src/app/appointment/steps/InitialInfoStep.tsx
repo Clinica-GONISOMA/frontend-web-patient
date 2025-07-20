@@ -35,7 +35,7 @@ export default function InitialInfoStep({
     selectedCommune, setSelectedCommune,
 }: InitialInfoProps) {
     return (
-        <div className="flex flex-row items-center justify-center w-fit">
+        <div className="flex flex-row  justify-center w-fit">
             {/* Bloque Personal */}
             <div className="flex flex-col gap-4 mr-20">
                 <p className="text-lg mb-6 font-bold">Información personal</p>
