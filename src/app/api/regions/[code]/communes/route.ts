@@ -1,12 +1,12 @@
-// app/api/regions/[codigo]/commune/route.ts
+// app/api/regions/[code]/communes/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { code: string } }
+  { params }: { params: Promise<{ code: string }> }
 ) {
   try {
-    const { code } = params;
+    const { code } = await params;
     const response = await fetch(`https://apis.digital.gob.cl/dpa/regiones/${code}/comunas`);
     const data = await response.json();
 
