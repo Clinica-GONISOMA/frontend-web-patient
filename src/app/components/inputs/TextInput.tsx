@@ -1,7 +1,7 @@
 'use client';
 import { useId } from "react";
 
-interface FloatingInputProps {
+interface TextInputProps {
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -17,7 +17,7 @@ export default function TextInput({
   name,
   type = "text",
   className = "",
-}: FloatingInputProps) {
+}: TextInputProps) {
   const autoId = useId(); // genera un id único por si no se pasa `name`
   const inputId = name || autoId;
 
@@ -33,7 +33,7 @@ export default function TextInput({
       />
       <label
         htmlFor={inputId}
-        className="absolute left-4 top-3 text-[var(--color-foreground)] text-base transition-all
+        className="absolute rounded-full left-4 top-3 text-[var(--color-foreground)] text-base transition-all
           peer-placeholder-shown:top-4
           peer-placeholder-shown:text-base
           peer-placeholder-shown:text-[var(--color-foreground)]

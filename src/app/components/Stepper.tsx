@@ -13,9 +13,17 @@ interface StepperProps {
 
 export default function Stepper({ currentStep, steps }: StepperProps) {
   return (
-    <div className="w-full space-y-6">
-      {/* Circles and connecting lines */}
+    <div className="w-full">
+      {/* Titles aligned under circles */}
       <div className="flex">
+        {steps.map((step, index) => (
+          <div key={index} className="flex-1 text-center text-sm px-1">
+            {step.title}
+          </div>
+        ))}
+      </div>
+      {/* Circles and connecting lines */}
+      <div className="flex mt-2">
         {steps.map((_, index) => (
           <div key={index} className="relative flex-1 flex justify-center items-center max-w-md w-md">
             {/* Circle */}
@@ -38,17 +46,10 @@ export default function Stepper({ currentStep, steps }: StepperProps) {
         ))}
       </div>
 
-      {/* Titles aligned under circles */}
-      <div className="flex">
-        {steps.map((step, index) => (
-          <div key={index} className="flex-1 text-center text-sm font-semibold px-1">
-            {step.title}
-          </div>
-        ))}
-      </div>
+
 
       {/* Content of current step */}
-      <div>
+      <div className='mt-15'>
         {steps[currentStep].content}
       </div>
     </div>
