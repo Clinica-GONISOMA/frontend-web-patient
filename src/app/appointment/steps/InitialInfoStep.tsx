@@ -43,7 +43,7 @@ export default function InitialInfoStep({
                     {['rut', 'pasaporte'].map(type => (
                         <button
                             key={type}
-                            className={`border rounded-full px-3 py-1 text-sm transition ${selectedIdType === type
+                            className={`border rounded-full px-3 py-1 text-sm transition cursor-pointer ${selectedIdType === type
                                 ? 'bg-[var(--color-foreground)] text-[var(--color-background)]'
                                 : 'bg-[var(--color-background)] text-[var(--color-foreground)]'}`}
                             onClick={() => setSelectedIdType(type as 'rut' | 'pasaporte')}
