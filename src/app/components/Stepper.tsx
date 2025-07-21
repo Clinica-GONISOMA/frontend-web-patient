@@ -49,7 +49,7 @@ export default function Stepper({ currentStep, steps }: StepperProps) {
 
 
       {/* Content of current step */}
-      <div className='mt-15 w-fit'>
+      <div className='mt-15 w-full justify-center flex'>
         {steps[currentStep].content}
       </div>
     </div>

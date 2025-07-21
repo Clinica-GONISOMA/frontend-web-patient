@@ -5,6 +5,8 @@ import InitialInfoStep from './steps/InitialInfoStep';
 import ConsultationStep from './steps/ConsultationStep';
 import DateTimeStep from './steps/DateTimeStep';
 import SummaryStep from './steps/SummaryStep';
+import ExaminationStep from './steps/ExaminationStep';
+import ProcedureStep from './steps/ProcedureStep';
 
 export default function Appointment() {
   const [step, setStep] = useState<number>(0);
@@ -29,6 +31,10 @@ export default function Appointment() {
   const [selectedSpecialty, setSelectedSpecialty] = useState<string>('');
   const [selectedPsychiatricAttentionType, setSelectedPsychiatricAttentionType] = useState<string>('');
   const [selectedDoctor, setSelectedDoctor] = useState<string>('all');
+
+  // Estados para exámenes y procedimientos
+  const [selectedExam, setSelectedExam] = useState<string>('');
+  const [selectedProcedure, setSelectedProcedure] = useState<string>('');
 
   // Estado para fecha y hora
   const [availableSlots, setAvailableSlots] = useState<Record<string, string[]>>({
@@ -153,12 +159,18 @@ export default function Appointment() {
         ) : selectedServiceType === 'examination' ? (
           <div>
             {/* Contenido específico para Exámenes */}
-            Seleccionaste Exámenes. Aquí puedes seleccionar los estudios disponibles.
+            <ExaminationStep
+              selectedExam={selectedExam}
+              setSelectedExam={setSelectedExam}
+            />
           </div>
         ) : selectedServiceType === 'procedure' ? (
           <div>
             {/* Contenido específico para Procedimientos */}
-            Seleccionaste Procedimientos. Configura los detalles de tu procedimiento.
+            <ProcedureStep
+              selectedProcedure={selectedProcedure}
+              setSelectedProcedure={setSelectedProcedure}
+            />
           </div>
         ) : null
       ),
@@ -199,6 +211,8 @@ export default function Appointment() {
             selectedDoctor={selectedDoctor}
             selectedDate={selectedDate}
             selectedTime={selectedTime}
+            selectedExam={selectedExam}
+            selectedProcedure={selectedProcedure}
           />
         ),
     },

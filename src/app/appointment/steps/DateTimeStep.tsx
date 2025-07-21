@@ -1,4 +1,3 @@
-import { on } from 'events';
 import React, { useState, useMemo } from 'react';
 
 interface AppointmentSchedulerProps {
