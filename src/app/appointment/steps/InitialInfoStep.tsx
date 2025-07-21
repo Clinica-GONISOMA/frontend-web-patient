@@ -38,7 +38,6 @@ export default function InitialInfoStep({
         <div className="flex flex-row  justify-center w-fit">
             {/* Bloque Personal */}
             <div className="flex flex-col gap-4 mr-20">
-                <p className="text-lg mb-6 font-bold">Información personal</p>
                 <div className="flex gap-4">
                     {['rut', 'pasaporte'].map(type => (
                         <button
@@ -48,11 +47,11 @@ export default function InitialInfoStep({
                                 : 'bg-[var(--color-background)] text-[var(--color-foreground)]'}`}
                             onClick={() => setSelectedIdType(type as 'rut' | 'pasaporte')}
                         >
-                            {type.toUpperCase()}
+                            {type === 'rut' ? 'RUT' : 'Pasaporte'}
                         </button>
                     ))}
                 </div>
-                <TextInput label={selectedIdType === 'rut' ? 'RUT' : 'Pasaporte'} value={idNumber} onChange={setIdNumber} name="id-number"  className='mb-6' />
+                <TextInput label={selectedIdType === 'rut' ? 'RUT' : 'Pasaporte'} value={idNumber} onChange={setIdNumber} name="id-number" className='mb-6' />
                 <Select
                     label="Previsión"
                     value={selectedInsurance}
@@ -70,7 +69,6 @@ export default function InitialInfoStep({
             </div>
             {/* Bloque Servicio/Ubicación */}
             <div className="flex flex-col gap-4">
-                <p className="text-lg font-bold mb-6">Información general</p>
                 <Select label="Tipo de servicio" value={selectedServiceType} onChange={setSelectedServiceType} options={[
                     { label: 'Consulta médica', value: 'consultation' },
                     { label: 'Exámenes', value: 'examination' },
@@ -81,11 +79,11 @@ export default function InitialInfoStep({
                     <Select label="Tipo de atención" value={selectedAttentionType} onChange={setSelectedAttentionType} options={[
                         { label: 'Presencial', value: 'presencial' },
                         { label: 'Telemedicina', value: 'remote' },
-                        { label: 'Domicilio', value: 'inPlace' },
+                        { label: 'Domicilio', value: 'onSite' },
                     ]} className='mb-6' />
                 )}
 
-                {(selectedServiceType === 'examination' || selectedServiceType === 'procedure' || selectedAttentionType === 'presencial') ? (
+                {(selectedServiceType === 'examination' || selectedServiceType === 'procedure' || selectedAttentionType === 'presencial') && (
                     <Select
                         label="Lugar de atención"
                         value={selectedAttentionPlace}
@@ -98,18 +96,22 @@ export default function InitialInfoStep({
                         ]}
                         className='mb-6'
                     />
-                ) : (
-                    <DoubleSelect
-                        labelRegion="Región"
-                        labelCommune="Comuna"
-                        regions={regionOptions}
-                        communes={communeOptions}
-                        valueRegion={selectedRegion}
-                        valueCommune={selectedCommune}
-                        onRegionChange={val => { setSelectedRegion(val); setSelectedCommune(''); }}
-                        onCommuneChange={setSelectedCommune}
-                    />
                 )}
+                {
+                    (selectedServiceType === 'consultation' && selectedAttentionType === 'onSite') &&
+                    (
+                        <DoubleSelect
+                            labelRegion="Región"
+                            labelCommune="Comuna"
+                            regions={regionOptions}
+                            communes={communeOptions}
+                            valueRegion={selectedRegion}
+                            valueCommune={selectedCommune}
+                            onRegionChange={val => { setSelectedRegion(val); setSelectedCommune(''); }}
+                            onCommuneChange={setSelectedCommune}
+                        />
+                    )
+                }
             </div>
         </div>
     );
