@@ -37,14 +37,14 @@ export default function CancelAppointment() {
             value={idNumber}
             onChange={setIdNumber}
             name="id-number"
-            className="mt-2"
+            className="mt-2 w-80"
           />
           <TextInput
             label="Número de reserva"
             value={appointmentNumber}
             onChange={setAppointmentNumber}
             name="appointment-number"
-            className="mt-6"
+            className="mt-6 w-80"
           />
         </div>
 

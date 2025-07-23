@@ -22,7 +22,7 @@ export default function TextInput({
   const inputId = name || autoId;
 
   return (
-    <div className={`relative w-64 ${className}`}>
+    <div className={`relative ${className}`}>
       <input
         id={inputId}
         type={type}

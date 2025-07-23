@@ -39,11 +39,14 @@ export default function Header() {
             <nav className="flex items-center justify-between gap-10">
                 <ul className="flex gap-6 items-center">
                     <li>
-                        <Link href="/help">Centro de ayuda</Link>
+                        <Link href="/">Inicio</Link>
                     </li>
                     <li>
-                        <Link href="/account">Cuenta</Link>
+                        <Link href="/help">Centro de ayuda</Link>
                     </li>
+                    {/* <li>
+                        <Link href="/account">Cuenta</Link>
+                    </li> */}
                     <li className='flex items-center'>
                         <Link href="/appointment">
                             <button className="rounded-l-full cursor-pointer transition-colors flex items-center justify-center bg-foreground text-background gap-2 font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5">
