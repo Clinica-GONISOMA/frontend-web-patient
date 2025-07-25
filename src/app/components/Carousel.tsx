@@ -5,13 +5,15 @@ import Image from 'next/image'
 
 interface CarouselProps {
     images: string[]
-    height: string // e.g., 'h-[400px]'
     intervalMs?: number // autoplay interval (default 5000ms)
 }
 
-export default function Carousel({ images, height, intervalMs = 5000 }: CarouselProps) {
+export default function Carousel({ images, intervalMs = 5000 }: CarouselProps) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const intervalRef = useRef<NodeJS.Timeout | null>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [containerHeight, setContainerHeight] = useState<number>(0)
+    const imageRatios = useRef<(number | null)[]>(images.map(() => null))
     const touchStartX = useRef<number>(0)
     const touchEndX = useRef<number>(0)
     const swipeThreshold = 50 // px needed to qualify as swipe
@@ -42,6 +44,15 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
         }
     }
 
+    // Update container height when currentIndex or ratio changes
+    useEffect(() => {
+        const ratio = imageRatios.current[currentIndex]
+        const width = containerRef.current?.offsetWidth || 0
+        if (ratio && width) {
+            setContainerHeight(width * ratio)
+        }
+    }, [currentIndex])
+
     // Handlers for touch/swipe
     const handleTouchStart = (e: React.TouchEvent) => {
         stopAutoplay()
@@ -55,14 +66,21 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
     const handleTouchEnd = () => {
         const distance = touchStartX.current - touchEndX.current
         if (distance > swipeThreshold) {
-            // swiped left
             goToNext()
         } else if (distance < -swipeThreshold) {
-            // swiped right
             goToPrev()
         }
-        // restart autoplay after interaction
         startAutoplay()
+    }
+
+    // Called when Next/Image finishes loading
+    const handleImageLoad = (idx: number, naturalWidth: number, naturalHeight: number) => {
+        const ratio = naturalHeight / naturalWidth
+        imageRatios.current[idx] = ratio
+        if (idx === currentIndex && containerRef.current) {
+            const width = containerRef.current.offsetWidth
+            setContainerHeight(width * ratio)
+        }
     }
 
     const ArrowSVG = ({ rotate }: { rotate: number }) => (
@@ -82,7 +100,9 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
 
     return (
         <div
-            className={`relative w-full overflow-hidden ${height}`}
+            ref={containerRef}
+            className="relative w-full overflow-hidden"
+            style={{ height: containerHeight ? `${containerHeight}px` : 'auto' }}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
@@ -102,12 +122,14 @@ export default function Carousel({ images, height, intervalMs = 5000 }: Carousel
                                     fill
                                     className="object-contain"
                                     sizes="100vw"
+                                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
+                                        handleImageLoad(idx, naturalWidth, naturalHeight)
+                                    }
                                 />
                             </div>
                         ))}
                     </div>
                 </div>
-
             </div>
 
             {/* Prev Button */}

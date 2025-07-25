@@ -63,10 +63,10 @@ export default function Header() {
             {/* Navegación y botón modo oscuro */}
             <nav className="flex items-center justify-between gap-2 md:gap-10">
                 <ul className="flex gap-6 items-center">
-                    <li className='hidden lg:flex'>
+                    <li className='hidden xl:flex'>
                         <Link href="/">Inicio</Link>
                     </li>
-                    <li className='hidden lg:flex'>
+                    <li className='hidden xl:flex'>
                         <Link href="/help">Centro de ayuda</Link>
                     </li>
                     {/* <li>
@@ -88,7 +88,7 @@ export default function Header() {
                 </ul>
                 {/* Dentro de tu botón de mobile menu: */}
                 <button
-                    className="md:hidden p-2 ml-4 cursor-pointer"
+                    className="xl:hidden p-2 ml-4 cursor-pointer"
                     onClick={() => setMobileMenuOpen((prev) => !prev)}
                 >
                     {mobileMenuOpen ? (
@@ -125,7 +125,7 @@ export default function Header() {
 
                 <button
                     onClick={() => setIsDarkMode((prev) => !prev)}
-                    className="p-2 border-2 border-[var(--color-foreground)]/50 rounded-full cursor-pointer hidden md:flex"
+                    className="p-2 border-2 border-[var(--color-foreground)]/50 rounded-full cursor-pointer hidden xl:flex"
                 >
                     {isDarkMode ? '☀️' : '🌙'}
                 </button>
@@ -133,7 +133,7 @@ export default function Header() {
 
             </nav>
             {mobileMenuOpen && (
-                <div className="md:hidden fixed bg-[var(--color-background)] shadow-lg rounded-4xl z-50">
+                <div className="xl:hidden fixed bg-[var(--color-background)] shadow-lg rounded-4xl z-50 ">
                     <nav className="flex flex-col space-y-2 p-4">
                         <Link href="/" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
                         <Link href="/help" onClick={() => setMobileMenuOpen(false)}>Centro de ayuda</Link>
@@ -222,7 +222,6 @@ export default function Header() {
                         <button
                             onClick={() => {
                                 setIsDarkMode((prev) => !prev);
-                                setMobileMenuOpen(false);
                             }}
                             className="flex items-center pt-2 cursor-pointer"
                         >
