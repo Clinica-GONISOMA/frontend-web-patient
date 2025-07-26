@@ -137,7 +137,7 @@ export default function Header() {
                     <nav className="flex flex-col space-y-2 p-4">
                         <Link href="/" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
                         <Link href="/help" onClick={() => setMobileMenuOpen(false)}>Centro de ayuda</Link>
-                        <Link href="/cancel-appointment" onClick={() => setMobileMenuOpen(false)}>Anular hora</Link>
+                        <Link className='md:hidden flex' href="/cancel-appointment" onClick={() => setMobileMenuOpen(false)}>Anular hora</Link>
                         <div className="border-t border-[var(--color-foreground)]/20" />
 
                         {topics.map((topic, ti) => (

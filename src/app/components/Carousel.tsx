@@ -122,9 +122,10 @@ export default function Carousel({ images, intervalMs = 5000 }: CarouselProps) {
                                     fill
                                     className="object-contain"
                                     sizes="100vw"
-                                    onLoadingComplete={({ naturalWidth, naturalHeight }) =>
-                                        handleImageLoad(idx, naturalWidth, naturalHeight)
-                                    }
+                                    onLoad={e => {
+                                        const img = e.currentTarget as HTMLImageElement
+                                        handleImageLoad(idx, img.naturalWidth, img.naturalHeight)
+                                    }}
                                 />
                             </div>
                         ))}

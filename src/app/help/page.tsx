@@ -46,19 +46,19 @@ export default function Help() {
 
   return (
     <div className="w-full flex flex-col items-center justify-center">
-      <p className="text-5xl font-bold mt-20">Centro de ayuda</p>
-      <p className="text-lg mt-3">¿En que te podemos ayudar?</p>
+      <p className="md:text-5xl text-3xl font-bold mt-20">Centro de ayuda</p>
+      <p className="md:text-lg text-md mt-3">¿En que te podemos ayudar?</p>
 
       <TextInput
         label="Buscar por palabra, servicio o tema"
-        className="w-120 mt-10"
+        className="md:w-120 w-80 mt-10"
         value={search}
         onChange={setSearch}
       />
 
       <div className="w-full border-t-1 border-[var(--color-foreground)]/20 my-20" />
 
-      <div className="grid grid-cols-3 gap-10 mx-50 px-10">
+      <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10 xl:mx-50 mx-5">
         {helpCategories.map((category, index) => (
           <div key={index} className="flex items-center mb-10 bg-[var(--color-background)] p-6 rounded-4xl shadow-md cursor-pointer">
             <span className="text-5xl">{category.icon}</span>
