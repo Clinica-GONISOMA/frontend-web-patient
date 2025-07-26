@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Branding from './Branding';
 import { topics } from '../data';
 
@@ -8,30 +8,31 @@ export default function Header() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    const [openTopic, setOpenTopic] = useState<number>(-1)
-    // Índice de subtitle abierto dentro del topic abierto; -1 si ninguno
-    const [openSubtitle, setOpenSubtitle] = useState<number>(-1)
+    const [openTopic, setOpenTopic] = useState<number>(-1);
+    const [openSubtitle, setOpenSubtitle] = useState<number>(-1);
+
+    // ref for mobile menu to detect outside clicks
+    const menuRef = useRef<HTMLDivElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
 
     const handleTopicClick = (idx: number) => {
         if (openTopic === idx) {
-            // cerrar si ya estaba abierto
-            setOpenTopic(-1)
-            setOpenSubtitle(-1)
+            setOpenTopic(-1);
+            setOpenSubtitle(-1);
         } else {
-            setOpenTopic(idx)
-            setOpenSubtitle(-1) // reset subtitles
+            setOpenTopic(idx);
+            setOpenSubtitle(-1);
         }
-    }
+    };
 
     const handleSubtitleClick = (idx: number) => {
         if (openSubtitle === idx) {
-            setOpenSubtitle(-1)
+            setOpenSubtitle(-1);
         } else {
-            setOpenSubtitle(idx)
+            setOpenSubtitle(idx);
         }
-    }
+    };
 
-    // Leer del sistema o localStorage
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -43,7 +44,6 @@ export default function Header() {
         }
     }, []);
 
-    // Aplicar clase al <html>
     useEffect(() => {
         const root = document.documentElement;
         if (isDarkMode) {
@@ -55,12 +55,32 @@ export default function Header() {
         }
     }, [isDarkMode]);
 
+    // Close mobile menu on outside click
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (menuRef.current && 
+                !menuRef.current.contains(event.target as Node)&&
+                !menuButtonRef.current?.contains(event.target as Node)
+            ) {
+                setMobileMenuOpen(false);
+            }
+        };
+        if (mobileMenuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [mobileMenuOpen]);
+
     return (
-        <header className="flex content-between w-full justify-between px-4 md:px-20 py-5 shadow-xl xl:shadow-none">
+        <header className="flex content-between w-full justify-between px-4 md:px-20 py-5 shadow-xl xl:shadow-none relative">
             {/* Logo y nombre */}
             <Branding />
 
-            {/* Navegación y botón modo oscuro */}
+            {/* Navegación y botones */}
             <nav className="flex items-center justify-between gap-2 md:gap-10">
                 <ul className="flex gap-6 items-center">
                     <li className='hidden xl:flex'>
@@ -88,6 +108,7 @@ export default function Header() {
                 </ul>
                 {/* Dentro de tu botón de mobile menu: */}
                 <button
+                    ref={menuButtonRef}
                     className="xl:hidden p-2 ml-4 cursor-pointer"
                     onClick={() => setMobileMenuOpen((prev) => !prev)}
                 >
@@ -129,28 +150,29 @@ export default function Header() {
                 >
                     {isDarkMode ? '☀️' : '🌙'}
                 </button>
-
-
             </nav>
+
+            {/* Mobile Menu */}
             {mobileMenuOpen && (
-                <div className="xl:hidden fixed bg-[var(--color-background)] shadow-lg rounded-4xl z-50 ">
+                <div
+                    ref={menuRef}
+                    className="xl:hidden absolute top-full left-0 w-full bg-[var(--color-background)] shadow-lg rounded-b-3xl z-50 overflow-hidden border-t border-[var(--color-foreground)]/20"
+                >
                     <nav className="flex flex-col space-y-2 p-4">
                         <Link href="/" onClick={() => setMobileMenuOpen(false)}>Inicio</Link>
                         <Link href="/help" onClick={() => setMobileMenuOpen(false)}>Centro de ayuda</Link>
-                        <Link className='md:hidden flex' href="/cancel-appointment" onClick={() => setMobileMenuOpen(false)}>Anular hora</Link>
-                        <div className="border-t border-[var(--color-foreground)]/20" />
+                        <Link href="/cancel-appointment" className="md:hidden flex" onClick={() => setMobileMenuOpen(false)}>Anular hora</Link>
+                        <div className="border-t border-[var(--color-foreground)]/20 my-2" />
 
                         {topics.map((topic, ti) => (
                             <div key={ti} className="mb-2">
-                                {/* BOTÓN TOPIC */}
                                 <button
-                                    className="w-full text-left py-2 rounded flex justify-between items-center"
+                                    className="w-full text-left py-2 rounded flex justify-between items-center cursor-pointer"
                                     onClick={() => handleTopicClick(ti)}
                                 >
                                     <span className="font-medium">{topic.title}</span>
                                     <svg
-                                        className={`w-[20px] h-[20px] transform transition-transform duration-200 origin-center ${openTopic === ti ? 'rotate-180' : 'rotate-0'
-                                            }`}
+                                        className={`w-5 h-5 transform transition-transform duration-200 origin-center ${openTopic === ti ? 'rotate-180' : ''} ml-2`}
                                         xmlns="http://www.w3.org/2000/svg"
                                         fill="none"
                                         viewBox="0 0 20 20"
@@ -162,21 +184,18 @@ export default function Header() {
                                     </svg>
                                 </button>
 
-                                {/* CONTENIDO TOPIC EXPANDIDO */}
                                 {openTopic === ti && (
-                                    <div className="mt-1 ml-5">
+                                    <div className="mt-1 ml-4">
                                         {topic.content.length > 1 ? (
                                             topic.content.map((sub, si) => (
                                                 <div key={si} className="mb-1">
-                                                    {/* BOTÓN SUBTITLE */}
                                                     <button
-                                                        className="w-full text-left py-1 rounded flex justify-between items-center"
+                                                        className="w-full text-left py-1 rounded flex justify-between items-center cursor-pointer"
                                                         onClick={() => handleSubtitleClick(si)}
                                                     >
                                                         <span>{sub.subtitle}</span>
                                                         <svg
-                                                            className={`w-[20px] h-[20px] transform transition-transform duration-200 origin-center ${openSubtitle === si ? 'rotate-180' : 'rotate-0'
-                                                                }`}
+                                                            className={`w-5 h-5 transform transition-transform duration-200 origin-center ${openSubtitle === si ? 'rotate-180' : ''} ml-2`}
                                                             xmlns="http://www.w3.org/2000/svg"
                                                             fill="none"
                                                             viewBox="0 0 20 20"
@@ -188,12 +207,11 @@ export default function Header() {
                                                         </svg>
                                                     </button>
 
-                                                    {/* ITEMS DEL SUBTITLE */}
                                                     {openSubtitle === si && (
-                                                        <ul className="mt-1 pl-4">
+                                                        <ul className="mt-1 pl-4 space-y-1">
                                                             {sub.items.map((item, ii) => (
                                                                 <li key={ii}>
-                                                                    <button className="w-full text-left py-1 px-2 rounded">
+                                                                    <button className="w-full text-left py-1 px-2 rounded cursor-pointer">
                                                                         {item.name}
                                                                     </button>
                                                                 </li>
@@ -203,11 +221,10 @@ export default function Header() {
                                                 </div>
                                             ))
                                         ) : (
-                                            /* Si solo hay 1 subtitle, mostrar items directamente */
-                                            <ul>
+                                            <ul className="space-y-1">
                                                 {topic.content[0].items.map((item, ii) => (
                                                     <li key={ii}>
-                                                        <button className="w-full text-left py-1 px-2 rounded">
+                                                        <button className="w-full text-left py-1 px-2 rounded cursor-pointer">
                                                             {item.name}
                                                         </button>
                                                     </li>
@@ -219,11 +236,9 @@ export default function Header() {
                             </div>
                         ))}
 
-                        <div className="border-t border-[var(--color-foreground)]/20" />
+                        <div className="border-t border-[var(--color-foreground)]/20 my-2" />
                         <button
-                            onClick={() => {
-                                setIsDarkMode((prev) => !prev);
-                            }}
+                            onClick={() => setIsDarkMode(prev => !prev)}
                             className="flex items-center pt-2 cursor-pointer"
                         >
                             {isDarkMode ? '☀️ Claro' : '🌙 Oscuro'}
@@ -231,7 +246,6 @@ export default function Header() {
                     </nav>
                 </div>
             )}
-
         </header>
     );
 }
