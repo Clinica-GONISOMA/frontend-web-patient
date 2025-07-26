@@ -1,9 +1,14 @@
 
 import Link from 'next/link';
 
-export default function Branding() {
+interface BrandingProps {
+    className?: string;
+}
+
+export default function Branding( props: BrandingProps ) {
+    const { className } = props;
     return (
-        <Link href="/">
+        <Link href="/" className={`${className}`}>
             <div className="flex items-center">
 
                 <div className="text-4xl text-center mt-2">🏥</div>
