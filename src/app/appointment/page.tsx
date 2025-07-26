@@ -220,7 +220,7 @@ export default function Appointment() {
 
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center bg-[var(--color-background)] shadow-lg w-fit m-10 p-10 rounded-4xl gap-6">
+      <div className="flex flex-col items-center justify-center bg-[var(--color-background)] md:shadow-lg shadow-none w-fit m-10 p-10 rounded-4xl gap-6">
         <Stepper currentStep={step} steps={steps} />
 
         <div className="flex justify-between w-xs">

@@ -48,9 +48,9 @@ export default function AppointmentScheduler({ availableSlots, selectedDate, set
   const weekdayLabels = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
 
   return (
-    <div className="flex bg-[var(--color-background)] text-[var(--color-foreground)] w-2xl overflow-hidden">
+    <div className="flex flex-col md:flex-row bg-[var(--color-background)] text-[var(--color-foreground)] md:w-2xl w-full overflow-hidden">
       {/* Calendar */}
-      <div className="w-2/3 border-r border-[var(--color-foreground)/20] p-4 relative">
+      <div className="md:w-2/3 w-full md:border-r-1 md:border-b-0 border-b-1 border-r-0 border-[var(--color-foreground)/20] p-4 relative">
         <div className="flex items-center justify-center mb-4 relative">
           <button
             onClick={prevMonth}
@@ -111,7 +111,7 @@ export default function AppointmentScheduler({ availableSlots, selectedDate, set
       </div>
 
       {/* Time slots */}
-      <div className="w-2/3 p-4">
+      <div className="md:w-2/3 w-full p-4">
         <h3 className="text-lg font-semibold mb-2">
           {new Date(selectedDate).toLocaleDateString('es-ES', {
             day: '2-digit',

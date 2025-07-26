@@ -16,9 +16,9 @@ export default function ConsultationStep({
     selectedDoctor, setSelectedDoctor
 }: ConsultationProps) {
     return (
-        <div className="flex flex-row  justify-center w-fit">
+        <div className="flex md:flex-row flex-col justify-center w-fit gap-10 mb-6">
             {/* Bloque Personal */}
-            <div className="flex flex-col gap-4 mr-20">
+            <div className="flex flex-col gap-10">
                 <Select
                     label="Especialidad"
                     value={selectedSpecialty}
@@ -35,7 +35,6 @@ export default function ConsultationStep({
                         { label: 'Oftalmología', value: 'ophthalmology' },
                         { label: 'Cardiología', value: 'cardiology' },
                     ]}
-                    className='mb-6'
                     filterable={true} // Habilita el filtro
                 />
 
@@ -53,7 +52,7 @@ export default function ConsultationStep({
                 }
             </div>
             {/* Bloque Servicio/Ubicación */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-10">
                 <Select label="Médico/a" value={selectedDoctor} onChange={setSelectedDoctor} options={[
                     { label: 'Todos', value: 'all' },
                     { label: 'Dr. Juan Rodríguez', value: 'dr-juan-rodriguez' },
@@ -64,9 +63,9 @@ export default function ConsultationStep({
                     { label: 'Dr. Luis Fernández', value: 'dr-luis-fernandez' },
                     { label: 'Dra. Paula Martínez', value: 'dra-paula-martinez' },
                     { label: 'Dr. Andrés Sánchez', value: 'dr-andres-sanchez' },
-                ]} className='mb-6'  filterable/>
+                ]} filterable />
 
-                
+
             </div>
         </div>
     );

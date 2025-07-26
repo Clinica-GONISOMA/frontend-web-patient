@@ -35,23 +35,26 @@ export default function InitialInfoStep({
     selectedCommune, setSelectedCommune,
 }: InitialInfoProps) {
     return (
-        <div className="flex flex-row  justify-center w-fit">
+        <div className="flex md:flex-row flex-col justify-center w-fit gap-10 mb-6">
             {/* Bloque Personal */}
-            <div className="flex flex-col gap-4 mr-20">
-                <div className="flex gap-4">
-                    {['rut', 'pasaporte'].map(type => (
-                        <button
-                            key={type}
-                            className={`border rounded-full px-3 py-1 text-sm transition cursor-pointer ${selectedIdType === type
-                                ? 'bg-[var(--color-foreground)] text-[var(--color-background)]'
-                                : 'bg-[var(--color-background)] text-[var(--color-foreground)]'}`}
-                            onClick={() => setSelectedIdType(type as 'rut' | 'pasaporte')}
-                        >
-                            {type === 'rut' ? 'RUT' : 'Pasaporte'}
-                        </button>
-                    ))}
+            <div className="flex flex-col gap-10 ">
+                <div className='flex flex-col gap-6'>
+                    <div className="flex gap-4">
+                        {['rut', 'pasaporte'].map(type => (
+                            <button
+                                key={type}
+                                className={`border rounded-full px-3 py-1 text-sm transition cursor-pointer ${selectedIdType === type
+                                    ? 'bg-[var(--color-foreground)] text-[var(--color-background)]'
+                                    : 'bg-[var(--color-background)] text-[var(--color-foreground)]'}`}
+                                onClick={() => setSelectedIdType(type as 'rut' | 'pasaporte')}
+                            >
+                                {type === 'rut' ? 'RUT' : 'Pasaporte'}
+                            </button>
+                        ))}
+                    </div>
+                    <TextInput label={selectedIdType === 'rut' ? 'RUT' : 'Pasaporte'} value={idNumber} onChange={setIdNumber} name="id-number" />
                 </div>
-                <TextInput label={selectedIdType === 'rut' ? 'RUT' : 'Pasaporte'} value={idNumber} onChange={setIdNumber} name="id-number" className='mb-6' />
+
                 <Select
                     label="Previsión"
                     value={selectedInsurance}
@@ -68,19 +71,19 @@ export default function InitialInfoStep({
                 />
             </div>
             {/* Bloque Servicio/Ubicación */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-10">
                 <Select label="Tipo de servicio" value={selectedServiceType} onChange={setSelectedServiceType} options={[
                     { label: 'Consulta médica', value: 'consultation' },
                     { label: 'Exámenes', value: 'examination' },
                     { label: 'Procedimiento', value: 'procedure' },
-                ]} className='mb-6' />
+                ]} />
 
                 {selectedServiceType === 'consultation' && (
                     <Select label="Tipo de atención" value={selectedAttentionType} onChange={setSelectedAttentionType} options={[
                         { label: 'Presencial', value: 'presencial' },
                         { label: 'Telemedicina', value: 'remote' },
                         { label: 'Domicilio', value: 'onSite' },
-                    ]} className='mb-6' />
+                    ]} />
                 )}
 
                 {(selectedServiceType === 'examination' || selectedServiceType === 'procedure' || selectedAttentionType === 'presencial') && (
@@ -94,22 +97,42 @@ export default function InitialInfoStep({
                             { label: "Sucursal Sur", value: "south" },
                             { label: "Sucursal Oriente", value: "east" },
                         ]}
-                        className='mb-6'
                     />
                 )}
                 {
                     (selectedServiceType === 'consultation' && selectedAttentionType === 'onSite') &&
                     (
-                        <DoubleSelect
-                            labelRegion="Región"
-                            labelCommune="Comuna"
-                            regions={regionOptions}
-                            communes={communeOptions}
-                            valueRegion={selectedRegion}
-                            valueCommune={selectedCommune}
-                            onRegionChange={val => { setSelectedRegion(val); setSelectedCommune(''); }}
-                            onCommuneChange={setSelectedCommune}
-                        />
+                        <div className='flex flex-col gap-10'>
+
+                            <DoubleSelect
+                                labelRegion="Región"
+                                labelCommune="Comuna"
+                                regions={regionOptions}
+                                communes={communeOptions}
+                                valueRegion={selectedRegion}
+                                valueCommune={selectedCommune}
+                                onRegionChange={val => { setSelectedRegion(val); setSelectedCommune(''); }}
+                                onCommuneChange={setSelectedCommune}
+                                className='hidden md:flex'
+                            />
+
+                            {/* // Mobile view
+                            // Convert double select to a single select for region and other for commune */}
+                            <Select
+                                label="Región"
+                                value={selectedRegion}
+                                onChange={setSelectedRegion}
+                                options={regionOptions}
+                                className='md:hidden'
+                            />
+                            <Select
+                                label="Comuna"
+                                value={selectedCommune}
+                                onChange={setSelectedCommune}
+                                options={communeOptions}
+                                className='md:hidden'
+                            />
+                        </div>
                     )
                 }
             </div>
@@ -131,6 +154,7 @@ interface DoubleSelectProps {
     valueCommune: string;
     onRegionChange: (value: string) => void;
     onCommuneChange: (value: string) => void;
+    className?: string;
 }
 
 function DoubleSelect({
@@ -142,6 +166,7 @@ function DoubleSelect({
     valueCommune,
     onRegionChange,
     onCommuneChange,
+    className = "",
 }: DoubleSelectProps) {
     const regionId = useId();
     const comunaId = useId();
@@ -164,7 +189,7 @@ function DoubleSelect({
     const comunaDisabled = !valueRegion;
 
     return (
-        <div className="flex max-w-full items-center" ref={ref}>
+        <div className={`flex max-w-full items-center ${className}`} ref={ref}>
             {/* Región */}
             <div className="relative w-64">
                 <div

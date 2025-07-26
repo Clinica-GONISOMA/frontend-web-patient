@@ -9,7 +9,7 @@ export default function CancelAppointment() {
 
   return (
     <div className="w-full items-center justify-center flex">
-      <div className="flex flex-col items-center justify-center bg-[var(--color-background)] shadow-lg m-10 p-10 w-fit rounded-4xl gap-6">
+      <div className="flex flex-col items-center justify-center bg-[var(--color-background)] md:shadow-lg shadow-none m-10 p-10 w-fit rounded-4xl gap-6">
         <p className="text-2xl font-bold">Anular hora</p>
 
         {/* Selector */}
